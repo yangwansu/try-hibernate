@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Getter
 @Entity
 @Table(name = "PRODUCT")
-public class Product {
+public final class Product {
 
     @Id
     @GeneratedValue
@@ -18,7 +18,7 @@ public class Product {
 
     private String name;
 
-    public Product() {
+    protected Product() {
     }
 
     public Product(String name) {

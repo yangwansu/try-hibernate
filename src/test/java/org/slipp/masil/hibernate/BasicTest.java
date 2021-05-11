@@ -1,6 +1,7 @@
 package org.slipp.masil.hibernate;
 
-import org.assertj.core.api.Assertions;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,20 +9,17 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-import java.util.List;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BasicTest {
 
     EntityManagerFactory entityManagerFactory;
-    EntityManager em;
 
     @BeforeEach
     void setUp() {
         entityManagerFactory = Persistence.createEntityManagerFactory("org.slipp.masil.jpa");
-        em = entityManagerFactory.createEntityManager();
     }
 
     @AfterEach
@@ -31,22 +29,61 @@ public class BasicTest {
 
 
     @Test
+    void session_of_hibernate_is_entity_manager_of_jpa() {
+        assertThat(entityManagerFactory).isInstanceOf(SessionFactory.class);
+        assertThat(entityManagerFactory.createEntityManager()).isInstanceOf(Session.class);
+    }
+
+    @Test
     void basic() {
+
+        doTransaction((em) -> {
+            Product product = new Product("macbook");
+            em.persist(product);
+            Product found0 = em.find(Product.class, product.getId());
+
+            assertThat(found0).isSameAs(product);
+        });
+    }
+
+
+    @Test
+    void first_level_cache() {
         Product product = new Product("macbook");
 
-        em.getTransaction().begin();
-        em.persist(product);
-        em.getTransaction().commit();
-        em.close();
+        doTransaction(em -> em.persist(product));
 
-        em = entityManagerFactory.createEntityManager();
-        em.getTransaction().begin();
-        List<Product> result = em.createQuery( "from Product", Product.class ).getResultList();
-        result.forEach(System.out::println);
-        em.getTransaction().commit();
-        em.close();
+        doTransaction(em -> {
+            Product found1 = em.find(Product.class, product.getId()); // from L1 cache
+            Product found2 = em.find(Product.class, product.getId()); // from L1 cache
+            Product found3 = entityManagerFactory.createEntityManager().find(Product.class, product.getId()); // from db
 
-        assertThat(product.getId()).isNotNull();
+            em.detach(found1); //evict
+            Product found4 = em.find(Product.class, product.getId()); // from db
+
+            assertThat(found1).isNotSameAs(product);
+            assertThat(found1).isNotNull();
+            assertThat(found1).isSameAs(found2);
+            assertThat(found2).isNotSameAs(found3);
+            assertThat(found2).isNotSameAs(found4);
+        });
 
     }
+
+    private void doTransaction(Consumer<EntityManager> consumer) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            consumer.accept(em);
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+
 }
