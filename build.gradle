@@ -21,9 +21,9 @@ repositories {
 
 dependencies {
 
-    testImplementation "org.hibernate:hibernate-core:5.4.31.Final"
-    testImplementation "org.slf4j:slf4j-simple:1.7.5"
-    testRuntime 'com.h2database:h2:1.4.197'
+    implementation "org.hibernate:hibernate-core:5.4.31.Final"
+    implementation "org.slf4j:slf4j-simple:1.7.5"
+    runtime'com.h2database:h2:1.4.197'
 
     testImplementation(platform("org.junit:junit-bom:5.7.1"))
     testImplementation "org.junit.jupiter:junit-jupiter"

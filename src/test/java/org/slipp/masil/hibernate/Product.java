@@ -5,11 +5,9 @@ import lombok.Getter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Getter
 @Entity
-@Table(name = "PRODUCT")
 public final class Product {
 
     @Id

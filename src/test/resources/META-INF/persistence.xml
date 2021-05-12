@@ -13,9 +13,8 @@
         <description>
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>
-
-        <class>org.slipp.masil.hibernate.Product</class>
-
+<!--        <exclude-unlisted-classes>false</exclude-unlisted-classes>-->
+<!--        <class>org.slipp.masil.hibernate.Product</class>-->
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE" />
@@ -24,6 +23,7 @@
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.archive.autodetection" value="class, hbm"/>
         </properties>
 
     </persistence-unit>
