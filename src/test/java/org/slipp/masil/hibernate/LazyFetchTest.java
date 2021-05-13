@@ -3,7 +3,6 @@ package org.slipp.masil.hibernate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.hibernate.LazyInitializationException;
 import org.hibernate.proxy.HibernateProxy;
 import org.junit.jupiter.api.DisplayName;
