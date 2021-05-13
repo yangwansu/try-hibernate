@@ -22,12 +22,15 @@ repositories {
 dependencies {
 
     implementation "org.hibernate:hibernate-core:5.4.31.Final"
-    implementation "org.slf4j:slf4j-simple:1.7.5"
+    runtimeOnly 'org.slf4j:slf4j-log4j12:1.7.26'
     runtime'com.h2database:h2:1.4.197'
 
     testImplementation(platform("org.junit:junit-bom:5.7.1"))
     testImplementation "org.junit.jupiter:junit-jupiter"
     testImplementation "org.assertj:assertj-core:3.19.0"
+
+
+    testImplementation 'org.mockito:mockito-core:3.9.0'
 }
 
 test {
