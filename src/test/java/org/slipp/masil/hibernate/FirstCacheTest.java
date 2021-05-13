@@ -19,7 +19,7 @@ public class FirstCacheTest {
     void first_level_cache() {
         Product product = new Product("macbook");
 
-        get().transaction(em -> em.persist(product));
+        get().transaction(em -> { em.persist(product);});
 
         get().transaction(em -> {
             Product found1 = em.find(Product.class, product.getId()); // from L1 cache
