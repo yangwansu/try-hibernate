@@ -1,13 +1,11 @@
 package org.slipp.masil.hibernate;
 
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.slipp.masil.hibernate.supports.EntityManageTemplate;
 import org.slipp.masil.hibernate.supports.EntityManagerExtension;
 import org.slipp.masil.hibernate.supports.Persistence;
 
@@ -15,7 +13,7 @@ import javax.persistence.*;
 
 import static lombok.AccessLevel.PROTECTED;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.slipp.masil.hibernate.supports.EntityManageTemplate.*;
+import static org.slipp.masil.hibernate.supports.EntityManageTemplate.get;
 
 @ExtendWith(EntityManagerExtension.class)
 public class OneToOneTest {

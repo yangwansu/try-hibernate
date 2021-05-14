@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.util.Lists;
-import org.hibernate.internal.SessionFactoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,13 +11,10 @@ import org.slipp.masil.hibernate.supports.EntityManagerExtension;
 import org.slipp.masil.hibernate.supports.Persistence;
 
 import javax.persistence.*;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PROTECTED;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.slipp.masil.hibernate.supports.EntityManageTemplate.get;
 
 
@@ -115,15 +111,4 @@ public class NPlusOneTest {
         });
     }
 
-    private Connection getConnection(SessionFactoryImpl sessionFactory) {
-        Connection connection;
-        try {
-            connection = sessionFactory.getJdbcServices().getBootstrapJdbcConnectionAccess().obtainConnection();
-            assertThat(connection.isClosed()).isFalse();
-            return connection;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            throw new IllegalStateException(throwables.getMessage());
-        }
-    }
 }
