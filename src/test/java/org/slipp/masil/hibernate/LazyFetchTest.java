@@ -21,9 +21,8 @@ import static org.slipp.masil.hibernate.supports.EntityManageTemplate.get;
 @ExtendWith(EntityManagerExtension.class)
 public class LazyFetchTest {
 
-    @Entity
     @Getter
-    @Table(name = "Car")
+    @Entity(name = "Car")
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Car {
@@ -39,8 +38,7 @@ public class LazyFetchTest {
     }
 
     @Getter
-    @Entity
-    @Table(name = "Book")
+    @Entity(name = "Book")
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Book {
@@ -55,9 +53,8 @@ public class LazyFetchTest {
 
     }
 
-    @Entity
     @Getter
-    @Table(name = "Type")
+    @Entity(name = "Type")
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Type {

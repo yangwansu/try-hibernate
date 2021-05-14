@@ -9,7 +9,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.slipp.masil.hibernate.supports.EntityManagerExtension;
 import org.slipp.masil.hibernate.supports.Persistence;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import static lombok.AccessLevel.PROTECTED;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,8 +22,7 @@ import static org.slipp.masil.hibernate.supports.EntityManageTemplate.get;
 public class OneToOneTest {
 
     @Getter
-    @Entity
-    @Table(name = "Post")
+    @Entity(name = "Post")
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Post {
@@ -36,8 +38,7 @@ public class OneToOneTest {
     }
 
     @Getter
-    @Entity
-    @Table(name = "Author")
+    @Entity(name = "Author")
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Author {

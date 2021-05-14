@@ -22,8 +22,7 @@ import static org.slipp.masil.hibernate.supports.EntityManageTemplate.get;
 public class NPlusOneTest {
 
     @Getter
-    @Entity
-    @Table(name = "product")
+    @Entity(name = "Product")
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Product {
@@ -39,8 +38,7 @@ public class NPlusOneTest {
     }
 
     @Getter
-    @Entity
-    @Table(name = "category")
+    @Entity(name = "Category")
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Category {
@@ -82,7 +80,7 @@ public class NPlusOneTest {
 
         get().transaction((em) -> {
 
-            List<Product> all = em.createQuery("from NPlusOneTest$Product", Product.class).getResultList();
+            List<Product> all = em.createQuery("from Product", Product.class).getResultList();
 
             List<String> a = all.stream().flatMap(p->p.getCategories().stream()).map(Category::getName).collect(Collectors.toList());
 
@@ -102,7 +100,7 @@ public class NPlusOneTest {
 
         get().transaction((em) -> {
 
-            TypedQuery<Product> query = em.createQuery("from NPlusOneTest$Product p left join fetch p.categories", Product.class);
+            TypedQuery<Product> query = em.createQuery("from Product p left join fetch p.categories", Product.class);
             List<Product> all = query.getResultList();
 
             List<String> a = all.stream().flatMap(p->p.getCategories().stream()).map(Category::getName).collect(Collectors.toList());

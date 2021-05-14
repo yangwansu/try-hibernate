@@ -22,8 +22,7 @@ import static org.slipp.masil.hibernate.supports.EntityManageTemplate.get;
 public class OneToManyBidirectionalTest {
 
     @Getter
-    @Entity
-    @Table(name = "Team")
+    @Entity(name = "Team")
     @NoArgsConstructor(access = PROTECTED, force = true)
     @RequiredArgsConstructor(staticName = "of")
     public static class Team {
@@ -45,8 +44,7 @@ public class OneToManyBidirectionalTest {
 
 
     @Getter
-    @Entity
-    @Table(name = "Member")
+    @Entity(name = "Member")
     @NoArgsConstructor(access = PROTECTED, force = true)
     @AllArgsConstructor(staticName = "of")
     @RequiredArgsConstructor(staticName = "of")

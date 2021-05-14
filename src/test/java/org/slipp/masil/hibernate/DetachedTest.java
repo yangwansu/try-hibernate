@@ -2,6 +2,7 @@ package org.slipp.masil.hibernate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.PersistentObjectException;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +11,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.slipp.masil.hibernate.supports.EntityManagerExtension;
 import org.slipp.masil.hibernate.supports.Persistence;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static lombok.AccessLevel.PROTECTED;
@@ -22,10 +26,9 @@ import static org.slipp.masil.hibernate.supports.EntityManageTemplate.get;
 
 @ExtendWith(EntityManagerExtension.class)
 public class DetachedTest {
-    @Entity
     @Getter
-    @Table(name = "Team")
-    @NoArgsConstructor(access = PROTECTED)
+    @Entity(name = "Team")
+    @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Team {
 
         @Id
@@ -40,24 +43,20 @@ public class DetachedTest {
     }
 
     @Getter
-    @Entity
-    @Table(name = "User")
-    @NoArgsConstructor(access = PROTECTED)
+    @Entity(name = "User")
+    @NoArgsConstructor(access = PROTECTED, force = true)
+    @RequiredArgsConstructor
     public static class User {
 
         @Id
         @GeneratedValue
         private Long id;
 
-        private String name;
+        private final String name;
 
         @ManyToOne
-        private Team team;
+        private final Team team;
 
-        public User(String name, Team team) {
-            this.name = name;
-            this.team = team;
-        }
     }
 
     @Test

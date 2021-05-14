@@ -21,8 +21,7 @@ import static org.slipp.masil.hibernate.supports.EntityManageTemplate.get;
 public class OneToManyUnidirectionalTest {
 
     @Getter
-    @Entity
-    @Table(name = "product")
+    @Entity(name = "product")
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Product {
@@ -38,8 +37,7 @@ public class OneToManyUnidirectionalTest {
     }
 
     @Getter
-    @Entity
-    @Table(name = "category")
+    @Entity(name = "category")
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Category {

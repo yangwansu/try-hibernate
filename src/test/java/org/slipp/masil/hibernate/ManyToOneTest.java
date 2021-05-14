@@ -23,7 +23,7 @@ public class ManyToOneTest {
     @Entity
     @Getter
     @Table(name = "Member")
-    @NoArgsConstructor(access = PROTECTED)
+    @NoArgsConstructor(access = PROTECTED, force = true)
     public static class Member {
 
         @Id
