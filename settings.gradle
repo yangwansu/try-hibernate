@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'try-hibernate'
+
+include 'jpa-testing', 'jpa-tests'
